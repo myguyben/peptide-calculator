@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peptide Reconstitution Calculator — mg, mL and syringe units</title>
+<meta name="description" content="Free peptide reconstitution calculator. Enter your vial size, bacteriostatic water and dose, and see exactly where to pull the plunger on a U-100 insulin syringe. No account, no app.">
+<link rel="canonical" href="https://peptide-calc.onrender.com/">
+
+<!-- Paste the Google Search Console verification tag here when you claim the property:
+     <meta name="google-site-verification" content="..."> -->
+
+<meta name="theme-color" content="#0A5D75">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<meta property="og:title" content="Peptide Reconstitution Calculator">
+<meta property="og:description" content="Enter vial size, water and dose. See exactly where to pull the plunger.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://peptide-calc.onrender.com/">
+<meta property="og:site_name" content="Peptide Reconstitution Calculator">
+<meta property="og:image" content="https://peptide-calc.onrender.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An insulin syringe drawn to scale, filled to the 10-unit mark on a 30-unit barrel.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Peptide Reconstitution Calculator">
+<meta name="twitter:description" content="Enter vial size, water and dose. See exactly where to pull the plunger.">
+<meta name="twitter:image" content="https://peptide-calc.onrender.com/og.png">
+<link rel="preload" href="/fonts/InstrumentSans-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/IBMPlexMono-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Fonts are served from this origin, so the page makes no third-party
+     requests at all. Latin subsets only. Regenerate with fetch-fonts. */
+  @font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;
+    src:url('/fonts/InstrumentSans-400-700.woff2') format('woff2')}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;
+    src:url('/fonts/IBMPlexMono-400.woff2') format('woff2')}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;
+    src:url('/fonts/IBMPlexMono-500.woff2') format('woff2')}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;
+    src:url('/fonts/IBMPlexMono-600.woff2') format('woff2')}
+
+  :root{
+    --ground:#E9EDF0;
+    --panel:#FFFFFF;
+    --ink:#141F28;
+    --ink-soft:#5C6B77;
+    --ink-faint:#8A98A3;
+    --fluid:#0E7C9B;
+    --fluid-deep:#0A5D75;
+    --hairline:#D2D9DF;
+    --warn:#A84A16;
+    --warn-bg:#FBF1E8;
+    --r:3px;
+    --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- masthead ---------- */
+  .masthead{padding:56px 0 36px}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 18px;
+  }
+  h1{
+    font-size:clamp(2rem,5.2vw,3.1rem);
+    line-height:1.04;
+    letter-spacing:-.028em;
+    font-weight:700;
+    margin:0 0 14px;
+    max-width:16ch;
+  }
+  .standfirst{
+    font-size:1.0625rem;
+    color:var(--ink-soft);
+    margin:0;
+    max-width:56ch;
+  }
+
+  /* ---------- calculator ---------- */
+  .calc{
+    display:grid;
+    grid-template-columns:minmax(0,340px) minmax(0,1fr);
+    gap:1px;
+    background:var(--hairline);
+    border:1px solid var(--hairline);
+    border-radius:var(--r);
+    overflow:hidden;
+  }
+  .pane{background:var(--panel);padding:28px}
+
+  .pane-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 22px;
+  }
+
+  .field{margin-bottom:20px}
+  .field:last-child{margin-bottom:0}
+  .field > label{
+    display:block;
+    font-size:.875rem;
+    font-weight:500;
+    margin-bottom:7px;
+  }
+  .hint{
+    display:block;
+    font-size:.78rem;
+    color:var(--ink-faint);
+    font-weight:400;
+    margin-top:3px;
+    line-height:1.45;
+  }
+
+  .control{display:flex}
+  input[type=number]{
+    font-family:var(--mono);
+    font-size:1rem;
+    font-weight:500;
+    color:var(--ink);
+    width:100%;
+    min-width:0;
+    padding:11px 12px;
+    background:#FBFCFD;
+    border:1px solid var(--hairline);
+    border-radius:var(--r) 0 0 var(--r);
+    -moz-appearance:textfield;
+  }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .control > input[type=number]:only-child{border-radius:var(--r)}
+  input[type=number]:focus-visible,
+  select:focus-visible{
+    outline:2px solid var(--fluid);
+    outline-offset:-1px;
+    position:relative;
+    z-index:1;
+  }
+  .unit{
+    font-family:var(--mono);
+    font-size:.8125rem;
+    color:var(--ink-soft);
+    background:#F2F5F7;
+    border:1px solid var(--hairline);
+    border-left:none;
+    border-radius:0 var(--r) var(--r) 0;
+    padding:0 13px;
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+  }
+  select.unit{
+    -webkit-appearance:none;appearance:none;
+    cursor:pointer;
+    padding-right:30px;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235C6B77' stroke-width='1.4' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 11px center;
+  }
+
+  .seg{display:flex;gap:0;position:relative}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg label{
+    flex:1;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:.8125rem;
+    padding:10px 4px;
+    background:#FBFCFD;
+    border:1px solid var(--hairline);
+    border-left-width:0;
+    cursor:pointer;
+    color:var(--ink-soft);
+    transition:background .12s,color .12s;
+  }
+  .seg label:first-of-type{border-left-width:1px;border-radius:var(--r) 0 0 var(--r)}
+  .seg label:last-of-type{border-radius:0 var(--r) var(--r) 0}
+  .seg label:hover{background:#F0F4F6}
+  .seg input:checked + label{
+    background:var(--fluid);
+    border-color:var(--fluid);
+    color:#fff;
+    font-weight:500;
+  }
+  .seg input:focus-visible + label{outline:2px solid var(--fluid);outline-offset:2px}
+
+  /* ---------- syringe (signature) ---------- */
+  .readout{display:flex;flex-direction:column;height:100%}
+
+  .syringe{margin-bottom:8px}
+  .barrel-row{display:flex;align-items:center}
+  .needle{
+    width:52px;height:2px;
+    background:linear-gradient(to left,var(--ink-faint) 60%,transparent);
+    flex:none;
+  }
+  .hub{
+    width:11px;height:15px;
+    background:var(--hairline);
+    border-radius:2px 0 0 2px;
+    flex:none;
+  }
+  .barrel{
+    position:relative;
+    flex:1;
+    height:74px;
+    background:#FBFCFD;
+    border:1px solid var(--hairline);
+    border-radius:0 2px 2px 0;
+    overflow:hidden;
+  }
+  .fill{
+    position:absolute;
+    inset:0 auto 0 0;
+    width:0;
+    background:linear-gradient(180deg,#1391B3,var(--fluid) 55%,var(--fluid-deep));
+    transition:width .42s cubic-bezier(.22,.61,.36,1);
+  }
+  .stopper{
+    position:absolute;
+    top:0;bottom:0;
+    width:9px;
+    background:var(--ink);
+    opacity:.82;
+    transform:translateX(-1px);
+    transition:left .42s cubic-bezier(.22,.61,.36,1);
+  }
+  .ticks{position:absolute;inset:0;pointer-events:none}
+  .tick{position:absolute;top:0;width:1px;background:var(--ink);opacity:.42}
+  .tick.minor{height:13px}
+  .tick.major{height:24px;opacity:.72}
+  .tick-num{
+    position:absolute;
+    bottom:5px;
+    transform:translateX(-50%);
+    font-family:var(--mono);
+    font-size:9.5px;
+    color:var(--ink-soft);
+  }
+  /* Gradations sitting on the drawn fluid invert, or they disappear into it. */
+  .tick.over{background:#fff;opacity:.5}
+  .tick.major.over{opacity:.8}
+  .tick-num.over{color:rgba(255,255,255,.94)}
+  .plunger{width:12px;height:26px;background:var(--hairline);flex:none;border-radius:0 2px 2px 0}
+  .flange{width:5px;height:52px;background:var(--hairline);flex:none;border-radius:0 2px 2px 0}
+
+  .scale-caption{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    text-align:right;
+    margin:0 0 30px;
+  }
+
+  /* ---------- answer ---------- */
+  .answer{border-top:1px solid var(--hairline);padding-top:24px}
+  .answer-label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 6px;
+  }
+  .big{
+    font-family:var(--mono);
+    font-size:clamp(2.6rem,7vw,3.9rem);
+    font-weight:600;
+    line-height:1;
+    letter-spacing:-.03em;
+    color:var(--fluid-deep);
+    display:flex;
+    align-items:baseline;
+    gap:11px;
+    flex-wrap:wrap;
+  }
+  .big .suffix{
+    font-family:var(--sans);
+    font-size:1rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    letter-spacing:0;
+  }
+  .big.void{color:var(--ink-faint);font-size:1.5rem}
+  .subline{
+    font-family:var(--mono);
+    font-size:.875rem;
+    color:var(--ink-soft);
+    margin:12px 0 0;
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--hairline);
+    border:1px solid var(--hairline);
+    border-radius:var(--r);
+    margin-top:26px;
+    overflow:hidden;
+  }
+  .stat{background:var(--panel);padding:14px 15px}
+  .stat dt{
+    font-family:var(--mono);
+    font-size:9.5px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 5px;
+  }
+  .stat dd{
+    font-family:var(--mono);
+    font-size:1.0625rem;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+
+  .notes{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+  .note{
+    display:flex;
+    gap:10px;
+    font-size:.8438rem;
+    line-height:1.5;
+    padding:11px 13px;
+    border-radius:var(--r);
+    background:var(--warn-bg);
+    color:var(--warn);
+    border:1px solid #EFDCC9;
+  }
+  .note .mark{font-family:var(--mono);font-weight:600;flex:none}
+
+  .fineprint{
+    font-size:.8125rem;
+    color:var(--ink-faint);
+    margin:20px 0 0;
+    line-height:1.55;
+  }
+
+  /* ---------- prose ---------- */
+  .prose{padding:72px 0 0;max-width:65ch}
+  .prose h2{
+    font-size:1.5rem;
+    letter-spacing:-.018em;
+    margin:0 0 16px;
+    font-weight:600;
+  }
+  .prose h3{font-size:1rem;font-weight:600;margin:30px 0 7px}
+  .prose p{margin:0 0 15px;color:#2C3A45}
+  .prose p:last-child{margin-bottom:0}
+  .formula{
+    font-family:var(--mono);
+    font-size:.875rem;
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-left:2px solid var(--fluid);
+    border-radius:var(--r);
+    padding:18px 20px;
+    margin:20px 0;
+    line-height:2;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .formula b{font-weight:600;color:var(--fluid-deep)}
+
+  .disclaimer{
+    margin:64px 0 0;
+    padding:24px 0 72px;
+    border-top:1px solid var(--hairline);
+    font-size:.8438rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+    max-width:70ch;
+  }
+  .disclaimer strong{color:var(--ink);font-weight:600}
+
+  @media (max-width:840px){
+    .calc{grid-template-columns:1fr}
+    .masthead{padding:40px 0 28px}
+    .pane{padding:22px}
+    .needle{width:26px}
+    .stats{grid-template-columns:1fr}
+    .wrap{padding:0 18px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition-duration:.01ms !important;animation-duration:.01ms !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Free · No account · Nothing stored</p>
+    <h1>Peptide reconstitution calculator</h1>
+    <p class="standfirst">Enter your vial size, the bacteriostatic water you added, and the dose you intend to draw. The syringe below shows where the plunger lands.</p>
+  </header>
+
+  <main class="calc">
+
+    <section class="pane">
+      <p class="pane-label">Your numbers</p>
+
+      <div class="field">
+        <label for="vial">Peptide in the vial</label>
+        <div class="control">
+          <input type="number" id="vial" value="5" min="0" step="any" inputmode="decimal">
+          <select class="unit" id="vialUnit" aria-label="Vial unit">
+            <option value="1">mg</option>
+            <option value="0.001">mcg</option>
+          </select>
+        </div>
+        <span class="hint">Printed on the vial label.</span>
+      </div>
+
+      <div class="field">
+        <label for="water">Bacteriostatic water added</label>
+        <div class="control">
+          <input type="number" id="water" value="2" min="0" step="any" inputmode="decimal">
+          <span class="unit">mL</span>
+        </div>
+        <span class="hint">How much you reconstituted with.</span>
+      </div>
+
+      <div class="field">
+        <label for="dose">Dose you want to draw</label>
+        <div class="control">
+          <input type="number" id="dose" value="250" min="0" step="any" inputmode="decimal">
+          <select class="unit" id="doseUnit" aria-label="Dose unit">
+            <option value="0.001">mcg</option>
+            <option value="1">mg</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label id="syrLabel">Syringe</label>
+        <div class="seg" role="radiogroup" aria-labelledby="syrLabel">
+          <input type="radio" name="syr" id="s30" value="30" checked>
+          <label for="s30">30 u</label>
+          <input type="radio" name="syr" id="s50" value="50">
+          <label for="s50">50 u</label>
+          <input type="radio" name="syr" id="s100" value="100">
+          <label for="s100">100 u</label>
+        </div>
+        <span class="hint">All three are U-100 scale: 100 units = 1 mL.</span>
+      </div>
+
+      <div class="field">
+        <label for="price">Vial price <span style="color:var(--ink-faint);font-weight:400">— optional</span></label>
+        <div class="control">
+          <span class="unit" style="border-left:1px solid var(--hairline);border-right:none;border-radius:var(--r) 0 0 var(--r)">$</span>
+          <input type="number" id="price" placeholder="—" min="0" step="any" inputmode="decimal" style="border-radius:0 var(--r) var(--r) 0">
+        </div>
+      </div>
+    </section>
+
+    <section class="pane">
+      <div class="readout">
+        <p class="pane-label">Draw to here</p>
+
+        <div class="syringe">
+          <div class="barrel-row">
+            <span class="needle"></span>
+            <span class="hub"></span>
+            <div class="barrel" id="barrel">
+              <div class="fill" id="fill"></div>
+              <div class="stopper" id="stopper" style="left:0"></div>
+              <div class="ticks" id="ticks"></div>
+            </div>
+            <span class="plunger"></span>
+            <span class="flange"></span>
+          </div>
+        </div>
+        <p class="scale-caption" id="scaleCaption">Units on a 30-unit barrel</p>
+
+        <div class="answer">
+          <p class="answer-label">Pull the plunger to</p>
+          <div role="status" aria-live="polite">
+            <div class="big" id="big"><span>10</span><span class="suffix">units</span></div>
+            <p class="subline" id="subline">= 0.10 mL of solution</p>
+          </div>
+
+          <dl class="stats">
+            <div class="stat"><dt>Concentration</dt><dd id="conc">—</dd></div>
+            <div class="stat"><dt>Doses per vial</dt><dd id="doses">—</dd></div>
+            <div class="stat"><dt>Cost per dose</dt><dd id="cpd">—</dd></div>
+          </dl>
+
+          <div class="notes" id="notes"></div>
+
+          <p class="fineprint">This converts the numbers you entered. It does not recommend a dose, and it has no opinion on what you are drawing.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <article class="prose">
+    <h2>How the math works</h2>
+    <p>Reconstitution is two steps of arithmetic that people reliably get wrong at 6am. First you work out how concentrated the vial became when you added water. Then you work out what fraction of that you need.</p>
+
+    <div class="formula">
+      <b>Concentration</b> = peptide (mg) ÷ water (mL)<br>
+      <b>Volume to draw</b> = dose (mg) ÷ concentration (mg/mL)<br>
+      <b>Syringe units</b> = volume (mL) × 100
+    </div>
+
+    <p>The last line is the one worth committing to memory. Insulin syringes are marked on the U-100 scale, so one unit is always 0.01 mL — a hundredth of a millilitre. A 30-unit syringe holds 0.3 mL, a 50-unit holds 0.5 mL, a 100-unit holds a full millilitre. The barrel size changes; the meaning of a unit does not.</p>
+
+    <h3>A worked example</h3>
+    <p>A 5 mg vial with 2 mL of bacteriostatic water gives 2.5 mg per mL. To draw 250 mcg, first convert to milligrams — 0.25 mg — then divide: 0.25 ÷ 2.5 = 0.1 mL. Multiply by 100 and you get 10 units. On a 30-unit barrel that is a third of the way along, which is a comfortable, readable draw.</p>
+
+    <h3>Why the amount of water is a choice, not a rule</h3>
+    <p>Adding more water does not change how much peptide is in the vial. It only changes how far along the barrel a given dose lands. Less water makes for a short, cramped draw that is hard to read accurately. More water spreads the same dose across more gradations and makes it easier to hit precisely — up to the point where the vial physically cannot hold any more. Most vials top out around 2 to 3 mL.</p>
+
+    <h2>Common questions</h2>
+
+    <h3>Does the calculator change if I use a 50 or 100 unit syringe?</h3>
+    <p>The number of units does not change, because all three barrels use the same U-100 markings. What changes is whether the draw fits, and how easy it is to read. A 4-unit draw on a 100-unit barrel is squeezed into the first sliver of the scale; the same draw on a 30-unit barrel is far easier to see.</p>
+
+    <h3>What if my draw comes out under 2 units?</h3>
+    <p>It is a measurement problem rather than a math problem. Below about 2 units you are eyeballing a distance smaller than the width of the gradation marks, and small errors become large percentages. Reconstituting the next vial with more water spreads the same dose over more of the barrel.</p>
+
+    <h3>Why does the answer have decimals?</h3>
+    <p>Because the arithmetic rarely lands on a whole marking. A draw of 13.4 units sits between the 13 and 14 lines. Whether that precision is achievable depends on your syringe, not on the calculator.</p>
+
+    <h3>Does this tool store anything?</h3>
+    <p>No. The math runs in your browser. Nothing is sent anywhere, there is no account, and closing the tab clears it.</p>
+  </article>
+
+  <footer class="disclaimer">
+    <p><strong>This is a unit converter, not medical advice.</strong> It performs arithmetic on numbers you supply. It does not suggest doses, recommend compounds, or evaluate whether anything is safe or appropriate for you.</p>
+    <p>Many research peptides are not approved for human use and are not reviewed for safety, purity, or accurate labelling. Speak to a licensed clinician before starting, changing, or stopping anything. Check every calculation against your vial label and your own second opinion before you draw.</p>
+  </footer>
+
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"Peptide Reconstitution Calculator",
+  "url":"https://peptide-calc.onrender.com/",
+  "applicationCategory":"UtilitiesApplication",
+  "operatingSystem":"Any modern web browser",
+  "browserRequirements":"Requires JavaScript",
+  "description":"Converts peptide vial size, bacteriostatic water volume and intended dose into millilitres and U-100 insulin syringe units, and shows the draw to scale on a syringe barrel.",
+  "isAccessibleForFree":true,
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Does the calculation change if I use a 50 or 100 unit syringe?","acceptedAnswer":{"@type":"Answer","text":"No. All three barrels use the same U-100 markings, where one unit equals 0.01 mL. The unit count stays the same; only whether the draw fits, and how easy it is to read, changes."}},
+    {"@type":"Question","name":"What if my draw comes out under 2 units?","acceptedAnswer":{"@type":"Answer","text":"That is a measurement problem rather than a math problem. Below roughly 2 units you are estimating a distance smaller than the gradation marks, so small errors become large percentages. Reconstituting with more water spreads the same dose across more of the barrel."}},
+    {"@type":"Question","name":"How do you convert millilitres to insulin syringe units?","acceptedAnswer":{"@type":"Answer","text":"Multiply millilitres by 100. Insulin syringes use the U-100 scale, so one unit is always 0.01 mL regardless of whether the barrel holds 30, 50, or 100 units."}},
+    {"@type":"Question","name":"How do you calculate peptide concentration after reconstitution?","acceptedAnswer":{"@type":"Answer","text":"Divide the milligrams of peptide in the vial by the millilitres of bacteriostatic water added. A 5 mg vial reconstituted with 2 mL gives 2.5 mg per mL."}}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var vial=$('vial'), vialUnit=$('vialUnit'), water=$('water'), dose=$('dose'),
+      doseUnit=$('doseUnit'), price=$('price'),
+      fill=$('fill'), stopper=$('stopper'), ticks=$('ticks'),
+      big=$('big'), subline=$('subline'), conc=$('conc'), doses=$('doses'),
+      cpd=$('cpd'), notes=$('notes'), scaleCaption=$('scaleCaption');
+
+  function capacity(){
+    var el = document.querySelector('input[name=syr]:checked');
+    return el ? +el.value : 30;
+  }
+
+  function num(el){
+    var v = parseFloat(el.value);
+    return isFinite(v) && v > 0 ? v : null;
+  }
+
+  // Real syringes: 30u and 50u are marked every 1 unit, 100u every 2.
+  function gradations(cap){
+    if(cap===30)  return {minor:1, major:5};
+    if(cap===50)  return {minor:1, major:10};
+    return {minor:2, major:10};
+  }
+
+  var drawnCap = null;
+  function drawTicks(cap){
+    if(cap === drawnCap) return;
+    drawnCap = cap;
+    var g = gradations(cap), html = '';
+    for(var u=0; u<=cap; u+=g.minor){
+      var pct = (u/cap)*100;
+      var isMajor = u % g.major === 0;
+      html += '<span class="tick '+(isMajor?'major':'minor')+'" data-pct="'+pct+'" style="left:'+pct+'%"></span>';
+      if(isMajor){
+        var edge = pct<3 ? 'left:2px;transform:none' : (pct>97 ? 'right:2px;left:auto;transform:none' : 'left:'+pct+'%');
+        html += '<span class="tick-num" data-pct="'+pct+'" style="'+edge+'">'+u+'</span>';
+      }
+    }
+    ticks.innerHTML = html;
+    scaleCaption.textContent = 'Units on a '+cap+'-unit barrel';
+  }
+
+  function fmt(n, dp){
+    return n.toFixed(dp).replace(/\.?0+$/,'') || '0';
+  }
+
+  // Repaint gradations light where they overlap the drawn fluid (and the
+  // stopper, which sits right at the boundary and is just as dark).
+  function shadeTicks(pct){
+    var marks = ticks.querySelectorAll('[data-pct]');
+    for(var i=0;i<marks.length;i++){
+      var at = parseFloat(marks[i].getAttribute('data-pct'));
+      if(at <= pct + 0.6){ marks[i].classList.add('over'); }
+      else { marks[i].classList.remove('over'); }
+    }
+  }
+
+  function setVoid(msg){
+    big.className = 'big void';
+    big.innerHTML = '<span>'+msg+'</span>';
+    subline.textContent = '';
+    fill.style.width = '0%';
+    stopper.style.left = '0%';
+    shadeTicks(0);
+  }
+
+  function render(){
+    var cap = capacity();
+    drawTicks(cap);
+
+    var vialMg = num(vial) ? num(vial) * parseFloat(vialUnit.value) : null;
+    var waterMl = num(water);
+    var doseMg  = num(dose) ? num(dose) * parseFloat(doseUnit.value) : null;
+    var vialCost = num(price);
+
+    notes.innerHTML = '';
+    conc.textContent = '—'; doses.textContent = '—'; cpd.textContent = '—';
+
+    if(vialMg === null || waterMl === null){
+      setVoid('Enter a vial size and water volume');
+      return;
+    }
+
+    var cMgMl = vialMg / waterMl;
+    conc.textContent = fmt(cMgMl, 3) + ' mg/mL';
+
+    if(doseMg === null){
+      setVoid('Enter a dose');
+      return;
+    }
+
+    var ml = doseMg / cMgMl;
+    var units = ml * 100;
+
+    // +1e-9 guards against float error turning an exact 20 into 19.999...
+    var perVial = Math.floor(vialMg / doseMg + 1e-9);
+    doses.textContent = perVial >= 1 ? perVial + '×' : '0';
+    if(vialCost !== null && perVial >= 1){
+      cpd.textContent = '$' + (vialCost / perVial).toFixed(2);
+    }
+
+    big.className = 'big';
+    big.innerHTML = '<span>' + fmt(units, 2) + '</span><span class="suffix">' +
+                    (Math.abs(units-1) < 0.005 ? 'unit' : 'units') + '</span>';
+    subline.textContent = '= ' + fmt(ml, ml < 0.01 ? 4 : 3) + ' mL of solution';
+
+    var pct = Math.min(100, (units / cap) * 100);
+    fill.style.width = pct + '%';
+    stopper.style.left = pct + '%';
+    shadeTicks(pct);
+
+    var out = [];
+    if(units > cap){
+      out.push('This draw is '+fmt(units,2)+' units — more than a '+cap+'-unit syringe holds. Use a larger barrel, or reconstitute with less water so the same dose sits in a smaller volume.');
+    }
+    if(units > 0 && units < 2){
+      out.push('Under 2 units is hard to measure accurately, because the draw is narrower than the gap between markings. Reconstituting with more water spreads the same dose further along the barrel.');
+    }
+    if(waterMl > 3){
+      out.push(waterMl+' mL is more than most vials physically hold. Check the vial capacity before you add it.');
+    }
+    if(perVial < 1){
+      out.push('One dose at this size is larger than the entire vial contains.');
+    }
+    for(var i=0;i<out.length;i++){
+      var d = document.createElement('div');
+      d.className = 'note';
+      d.innerHTML = '<span class="mark">!</span><span>'+out[i]+'</span>';
+      notes.appendChild(d);
+    }
+  }
+
+  var inputs = [vial, vialUnit, water, dose, doseUnit, price];
+  for(var i=0;i<inputs.length;i++){
+    inputs[i].addEventListener('input', render);
+    inputs[i].addEventListener('change', render);
+  }
+  var radios = document.querySelectorAll('input[name=syr]');
+  for(var j=0;j<radios.length;j++){ radios[j].addEventListener('change', render); }
+
+  render();
+})();
+</script>
+
+</body>
+</html>
