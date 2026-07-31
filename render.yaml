@@ -1,0 +1,30 @@
+# Render Blueprint.
+#
+# NOTE: Render does NOT read Netlify-style `_headers` files. Header rules must
+# come from here (Blueprint services) or from the dashboard under
+# Settings -> Headers. The service was created via API rather than from this
+# Blueprint, so these rules are currently declarative only - see README.
+services:
+  - type: web
+    runtime: static
+    name: peptide-calc
+    repo: https://github.com/myguyben/peptide-calculator
+    branch: main
+    staticPublishPath: .
+    buildCommand: ""
+    headers:
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), microphone=(), camera=()
+      - path: /fonts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /og.png
+        name: Cache-Control
+        value: public, max-age=604800
