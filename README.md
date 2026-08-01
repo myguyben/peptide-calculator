@@ -93,19 +93,38 @@ site will find the sitemap.
     "?url=https://syringecalc.com/&key=$key")
   ```
 
-- **Google** — not automatable from here. Google does not participate in
-  IndexNow, and Search Console is OAuth-gated to the account owner. Ben has to:
-  1. Add `https://syringecalc.com/` as a URL-prefix property at
-     https://search.google.com/search-console
-  2. Verify with the HTML meta tag (there is a commented slot in `index.html`
-     `<head>` for it), then commit and push
-  3. Submit `sitemap.xml` under **Indexing → Sitemaps**
-  4. Run **URL Inspection → Request indexing** once for the homepage
+- **Google** — done 2026-07-31. `https://syringecalc.com/` is a verified
+  URL-prefix property, sitemap submitted, and the homepage reports
+  **"URL is on Google — Page is indexed"**, discovered via the sitemap, with
+  Google selecting our declared canonical. There is no API path for any of
+  this: Google does not participate in IndexNow, it retired the sitemap ping
+  endpoint in 2023, and the Indexing API only accepts `JobPosting` and
+  `BroadcastEvent`. It has to be driven through the Search Console UI.
+
+  Ownership is held by `google2da331979a34076d.html` at the site root plus the
+  meta tag in `index.html`. Keep both — verification is re-checked periodically.
+
+  A stale property still exists for `https://peptide-calc.onrender.com/`. That
+  host now 404s, so the property is dead weight; harmless, but delete it if it
+  gets confusing.
+
+### If the domain ever changes again
+
+Render makes the custom domain primary and starts 404ing the `onrender.com`
+subdomain. Anything still pointing at the old host — canonical, `og:url`,
+`og:image`, sitemap `<loc>`, `robots.txt` — then references a dead URL, which is
+worse for indexing than having no canonical at all. Run the find-replace above
+*before* or immediately after the switch, and add a fresh Search Console
+property for the new host.
+
+Note for the find-replace: `Get-Content -Raw` in Windows PowerShell 5.1 reads as
+ANSI and will mojibake the em dashes in `index.html`. Use
+`[System.IO.File]::ReadAllText($path, (New-Object System.Text.UTF8Encoding($false)))`.
 
 ## Reading the result
 
-Check **impressions**, not clicks, at 4–6 weeks. Impressions answer the real
-question — whether Google will index a new entrant in this niche at all. A few
-hundred impressions on the head term by mid-September means there is a way in;
-near-zero means the SEO channel is closed and the experiment cost a weekend
-rather than a quarter.
+Being indexed is not the same as ranking. Check **impressions**, not clicks, at
+4–6 weeks (around mid-September 2026) under **Performance**. A few hundred
+impressions on the head term means there is a way in; near-zero means the page
+is indexed but invisible, and the SEO channel is effectively closed — which
+costs a weekend rather than a quarter to learn.
