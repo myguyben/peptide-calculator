@@ -20,7 +20,8 @@ The disclaimer in the footer is load-bearing. Leave it.
 
 | Path | What it is |
 |---|---|
-| `index.html` | The entire site — inline CSS and JS, no build step |
+| `index.html` | The calculator — inline CSS and JS, no build step |
+| `blog/` | Four reference notes + index, sharing `blog/style.css` |
 | `fonts/*.woff2` | Self-hosted latin subsets, so the page makes zero third-party requests |
 | `og.png` | 1200×630 social card |
 | `favicon.ico`, `favicon-16.png`, `favicon-32.png`, `apple-touch-icon.png` | Icons |
@@ -29,6 +30,21 @@ The disclaimer in the footer is load-bearing. Leave it.
 | `<64-hex>.txt` | IndexNow ownership key |
 | `make-assets.ps1` | Regenerates og.png and every icon |
 | `fetch-fonts.ps1` | Re-downloads the woff2 subsets from Google Fonts |
+
+## Content rules for /blog/
+
+Everything published here stays on the **measurement** side of the line:
+arithmetic, unit systems, how the instrument is marked, how to check your own
+numbers. Nothing about what to draw, no compound names, no protocols, no
+storage-duration claims. That boundary is what keeps the site a calculator
+rather than a dosing resource, and it is what keeps it reviewable by ad
+networks and app stores later.
+
+Posts are deliberately few and deep rather than many and thin. Keyword-variant
+near-duplicates around one calculator is the templated-doorway pattern, which
+carries real manual-action risk — one strong page beats four weak ones. If you
+add a post, it should cover a subject the existing four do not, and it should
+link to the calculator and to at least one sibling post.
 
 ## Regenerating assets
 
