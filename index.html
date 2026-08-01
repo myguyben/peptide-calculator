@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Peptide Reconstitution Calculator — mg, mL and syringe units</title>
-<meta name="description" content="Free peptide reconstitution calculator. Enter your vial size, bacteriostatic water and dose, and see exactly where to pull the plunger on a U-100 insulin syringe. No account, no app.">
+<title>Peptide Reconstitution Calculator — mg to Units, mL and Syringe Draw</title>
+<meta name="description" content="Free peptide reconstitution calculator. Convert mg to insulin units and mL, and see exactly where the plunger lands on a to-scale U-100 syringe. Includes concentration and mcg-to-units reference tables. No account, no tracking.">
 <link rel="canonical" href="https://syringecalc.com/">
 
 <!-- Search Console ownership. Do not remove: verification is re-checked
@@ -392,6 +392,51 @@
   }
   .formula b{font-weight:600;color:var(--fluid-deep)}
 
+  .prose h2{margin-top:56px}
+  .prose h2:first-child{margin-top:0}
+  .prose ul{margin:0 0 15px;padding-left:20px;color:#2C3A45}
+  .prose li{margin-bottom:7px}
+  .prose strong{font-weight:600}
+
+  .tablewrap{
+    overflow-x:auto;
+    margin:20px 0;
+    border:1px solid var(--hairline);
+    border-radius:var(--r);
+    background:var(--panel);
+  }
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:.875rem}
+  caption{
+    caption-side:top;
+    text-align:left;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    padding:14px 16px 10px;
+  }
+  th,td{
+    padding:9px 16px;
+    text-align:right;
+    border-bottom:1px solid var(--hairline);
+    font-variant-numeric:tabular-nums;
+  }
+  th:first-child,td:first-child{text-align:left}
+  thead th{
+    font-family:var(--mono);
+    font-size:.75rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    background:#F7F9FA;
+    white-space:nowrap;
+  }
+  tbody th{font-weight:500;white-space:nowrap}
+  tbody td{font-family:var(--mono);color:var(--fluid-deep)}
+  tbody tr:last-child th,tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td,tbody tr:hover th{background:#F7F9FA}
+  .tnote{font-size:.8125rem;color:var(--ink-faint);margin:-8px 0 0}
+
   .disclaimer{
     margin:64px 0 0;
     padding:24px 0 72px;
@@ -545,19 +590,110 @@
     <h3>Why the amount of water is a choice, not a rule</h3>
     <p>Adding more water does not change how much peptide is in the vial. It only changes how far along the barrel a given dose lands. Less water makes for a short, cramped draw that is hard to read accurately. More water spreads the same dose across more gradations and makes it easier to hit precisely — up to the point where the vial physically cannot hold any more. Most vials top out around 2 to 3 mL.</p>
 
+    <h2>Reconstitution reference tables</h2>
+    <p>The calculator above handles any combination. These tables cover the arrangements people hit most often, for when you want to sanity-check a number without typing it in.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Concentration (mg/mL) by vial size and water added</caption>
+        <thead>
+          <tr><th scope="col">Vial</th><th scope="col">+ 1 mL</th><th scope="col">+ 2 mL</th><th scope="col">+ 3 mL</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">2 mg</th><td>2</td><td>1</td><td>0.67</td></tr>
+          <tr><th scope="row">5 mg</th><td>5</td><td>2.5</td><td>1.67</td></tr>
+          <tr><th scope="row">10 mg</th><td>10</td><td>5</td><td>3.33</td></tr>
+          <tr><th scope="row">15 mg</th><td>15</td><td>7.5</td><td>5</td></tr>
+          <tr><th scope="row">20 mg</th><td>20</td><td>10</td><td>6.67</td></tr>
+          <tr><th scope="row">30 mg</th><td>30</td><td>15</td><td>10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">Concentration is just the vial divided by the water. Adding water never changes how much peptide is in the vial — only how spread out it is.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Units to draw, by concentration and dose</caption>
+        <thead>
+          <tr><th scope="col">Dose</th><th scope="col">1 mg/mL</th><th scope="col">2.5 mg/mL</th><th scope="col">5 mg/mL</th><th scope="col">10 mg/mL</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">100 mcg</th><td>10 u</td><td>4 u</td><td>2 u</td><td>1 u</td></tr>
+          <tr><th scope="row">250 mcg</th><td>25 u</td><td>10 u</td><td>5 u</td><td>2.5 u</td></tr>
+          <tr><th scope="row">500 mcg</th><td>50 u</td><td>20 u</td><td>10 u</td><td>5 u</td></tr>
+          <tr><th scope="row">1000 mcg</th><td>100 u</td><td>40 u</td><td>20 u</td><td>10 u</td></tr>
+          <tr><th scope="row">2000 mcg</th><td>200 u</td><td>80 u</td><td>40 u</td><td>20 u</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">Units are on the U-100 scale, where 1 unit = 0.01 mL. Anything over 100 units will not fit in a single insulin syringe of any size. These are conversions of numbers, not suggestions about what to draw.</p>
+
+    <h2>Reading a U-100 insulin syringe</h2>
+    <p>All three common insulin syringes use the same scale. A unit is a hundredth of a millilitre on every one of them. What changes is the length of the barrel and how finely it is marked.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>Barrel sizes compared</caption>
+        <thead>
+          <tr><th scope="col">Syringe</th><th scope="col">Holds</th><th scope="col">Marked every</th><th scope="col">Easiest for</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">30 unit</th><td>0.3 mL</td><td>1 unit</td><td>Small draws, best resolution</td></tr>
+          <tr><th scope="row">50 unit</th><td>0.5 mL</td><td>1 unit</td><td>Mid-range draws</td></tr>
+          <tr><th scope="row">100 unit</th><td>1.0 mL</td><td>2 units</td><td>Large draws only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The practical consequence: a 4-unit draw is a readable distance on a 30-unit barrel and a cramped sliver on a 100-unit barrel, even though the number is identical. If your draws are consistently small, a shorter barrel buys you accuracy for free. Note that a 100-unit syringe is marked every <em>two</em> units, so odd numbers land between lines by design.</p>
+
+    <h2>Where people go wrong</h2>
+    <ul>
+      <li><strong>Confusing units with millilitres.</strong> "Draw 10" means 10 units, which is 0.1 mL — not 10 mL. This is the single most consequential mix-up on this page, and it is a factor of a hundred.</li>
+      <li><strong>Mixing mcg and mg.</strong> 250 mcg is 0.25 mg. A misplaced decimal here is a tenfold error in either direction. The calculator above takes either, but only if you pick the right one from the dropdown.</li>
+      <li><strong>Assuming more water means more peptide.</strong> It does not. Water changes concentration, never quantity.</li>
+      <li><strong>Reading a 100-unit barrel as though it were marked every unit.</strong> It is marked every two.</li>
+      <li><strong>Chasing a draw under 2 units.</strong> At that size you are estimating a gap narrower than the printed lines. Reconstitute with more water instead of squinting harder.</li>
+      <li><strong>Trusting arithmetic over the label.</strong> Check the vial. A calculator cannot tell you the vial contains what the label claims.</li>
+    </ul>
+
     <h2>Common questions</h2>
 
-    <h3>Does the calculator change if I use a 50 or 100 unit syringe?</h3>
+    <h3>How do I convert mg to insulin units?</h3>
+    <p>Two steps. Divide the dose in milligrams by the concentration in mg/mL to get millilitres, then multiply by 100. At 2.5 mg/mL, a 0.25 mg dose is 0.1 mL, which is 10 units. There is no direct mg-to-units conversion, because units measure volume and milligrams measure mass — the concentration is what links them.</p>
+
+    <h3>How many units is 250 mcg?</h3>
+    <p>It depends entirely on concentration, which is why the question has no single answer. At 1 mg/mL it is 25 units; at 2.5 mg/mL it is 10 units; at 5 mg/mL it is 5 units; at 10 mg/mL it is 2.5 units. Work out your concentration first, then convert.</p>
+
+    <h3>What does U-100 mean?</h3>
+    <p>It is the scale the syringe is printed on. U-100 means 100 units per millilitre, so one unit is 0.01 mL. Insulin syringes are standardised on it, which is why a unit means the same thing on a 30, 50 or 100 unit barrel.</p>
+
+    <h3>What is the difference between a unit and a millilitre?</h3>
+    <p>A millilitre is the actual volume. A unit is a hundredth of that. Syringes are marked in units because insulin doses are small, and the fine scale is easier to read than a decimal. Multiply units by 0.01 for millilitres; multiply millilitres by 100 for units.</p>
+
+    <h3>How much bacteriostatic water should I add?</h3>
+    <p>That is a choice about readability rather than a fixed rule, because it does not change how much peptide you have. Pick a volume that puts your intended draw somewhere comfortably readable on the barrel — roughly 5 to 30 units on a 30-unit syringe. Too little water produces a cramped draw; too much overflows the vial, which typically holds 2 to 3 mL. Check the manufacturer's literature for the vial you actually have.</p>
+
+    <h3>Does the calculation change if I use a 50 or 100 unit syringe?</h3>
     <p>The number of units does not change, because all three barrels use the same U-100 markings. What changes is whether the draw fits, and how easy it is to read. A 4-unit draw on a 100-unit barrel is squeezed into the first sliver of the scale; the same draw on a 30-unit barrel is far easier to see.</p>
+
+    <h3>What is the difference between bacteriostatic and sterile water?</h3>
+    <p>Bacteriostatic water contains a preservative, usually benzyl alcohol, which inhibits bacterial growth and is what makes repeated withdrawals from one vial possible. Sterile water has no preservative. That is a factual difference in what the liquids contain; which is appropriate for any given product is a question for the manufacturer's literature and a licensed clinician, not for a calculator.</p>
 
     <h3>What if my draw comes out under 2 units?</h3>
     <p>It is a measurement problem rather than a math problem. Below about 2 units you are eyeballing a distance smaller than the width of the gradation marks, and small errors become large percentages. Reconstituting the next vial with more water spreads the same dose over more of the barrel.</p>
 
+    <h3>What if my draw is more than 100 units?</h3>
+    <p>It will not fit in one insulin syringe, since a 100-unit barrel holds exactly 1 mL. Either the concentration is lower than it should be, or the dose figure is wrong by a factor of ten. Recheck both before splitting anything across syringes.</p>
+
     <h3>Why does the answer have decimals?</h3>
     <p>Because the arithmetic rarely lands on a whole marking. A draw of 13.4 units sits between the 13 and 14 lines. Whether that precision is achievable depends on your syringe, not on the calculator.</p>
 
+    <h3>Does a bigger vial mean more peptide per dose?</h3>
+    <p>No. A 10 mg vial reconstituted with 2 mL is twice as concentrated as a 5 mg vial with the same 2 mL, so the same dose needs half the volume. The vial size changes how many doses it contains and how far along the barrel each one lands — not what a dose is.</p>
+
     <h3>Does this tool store anything?</h3>
-    <p>No. The math runs in your browser. Nothing is sent anywhere, there is no account, and closing the tab clears it.</p>
+    <p>No. The math runs in your browser. Nothing is sent anywhere, there is no account, no tracking, and closing the tab clears it. Even the fonts are served from this domain, so the page makes no third-party requests at all.</p>
   </article>
 
   <footer class="disclaimer">
@@ -587,9 +723,17 @@
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
+    {"@type":"Question","name":"How do I convert mg to insulin units?","acceptedAnswer":{"@type":"Answer","text":"Divide the dose in milligrams by the concentration in mg/mL to get millilitres, then multiply by 100. At 2.5 mg/mL a 0.25 mg dose is 0.1 mL, which is 10 units. There is no direct mg-to-units conversion, because units measure volume and milligrams measure mass; concentration is what links them."}},
+    {"@type":"Question","name":"How many units is 250 mcg?","acceptedAnswer":{"@type":"Answer","text":"It depends on concentration. At 1 mg/mL it is 25 units, at 2.5 mg/mL it is 10 units, at 5 mg/mL it is 5 units, and at 10 mg/mL it is 2.5 units. Work out the concentration first, then convert."}},
+    {"@type":"Question","name":"What does U-100 mean?","acceptedAnswer":{"@type":"Answer","text":"U-100 is the scale insulin syringes are printed on: 100 units per millilitre, so one unit is 0.01 mL. It means a unit is the same volume on a 30, 50 or 100 unit barrel."}},
+    {"@type":"Question","name":"What is the difference between a unit and a millilitre?","acceptedAnswer":{"@type":"Answer","text":"A millilitre is the actual volume; a unit is a hundredth of one. Multiply units by 0.01 for millilitres, or millilitres by 100 for units."}},
+    {"@type":"Question","name":"How much bacteriostatic water should I add?","acceptedAnswer":{"@type":"Answer","text":"It is a readability choice rather than a fixed rule, because the water volume does not change how much peptide the vial contains. Pick a volume that puts the intended draw in a comfortably readable part of the barrel. Too little makes a cramped draw; too much overflows the vial, which typically holds 2 to 3 mL. Check the manufacturer's literature for the specific vial."}},
     {"@type":"Question","name":"Does the calculation change if I use a 50 or 100 unit syringe?","acceptedAnswer":{"@type":"Answer","text":"No. All three barrels use the same U-100 markings, where one unit equals 0.01 mL. The unit count stays the same; only whether the draw fits, and how easy it is to read, changes."}},
+    {"@type":"Question","name":"What is the difference between bacteriostatic and sterile water?","acceptedAnswer":{"@type":"Answer","text":"Bacteriostatic water contains a preservative, usually benzyl alcohol, which inhibits bacterial growth and allows repeated withdrawals from one vial. Sterile water contains no preservative. Which is appropriate for a given product is a question for the manufacturer's literature and a licensed clinician."}},
     {"@type":"Question","name":"What if my draw comes out under 2 units?","acceptedAnswer":{"@type":"Answer","text":"That is a measurement problem rather than a math problem. Below roughly 2 units you are estimating a distance smaller than the gradation marks, so small errors become large percentages. Reconstituting with more water spreads the same dose across more of the barrel."}},
-    {"@type":"Question","name":"How do you convert millilitres to insulin syringe units?","acceptedAnswer":{"@type":"Answer","text":"Multiply millilitres by 100. Insulin syringes use the U-100 scale, so one unit is always 0.01 mL regardless of whether the barrel holds 30, 50, or 100 units."}},
+    {"@type":"Question","name":"What if my draw is more than 100 units?","acceptedAnswer":{"@type":"Answer","text":"It will not fit in one insulin syringe, because a 100-unit barrel holds exactly 1 mL. Either the concentration is lower than intended or the dose figure is wrong by a factor of ten. Recheck both."}},
+    {"@type":"Question","name":"Why does the answer have decimals?","acceptedAnswer":{"@type":"Answer","text":"Because the arithmetic rarely lands on a whole marking. A draw of 13.4 units sits between the 13 and 14 lines. Whether that precision is achievable depends on the syringe, not the calculator."}},
+    {"@type":"Question","name":"Does a bigger vial mean more peptide per dose?","acceptedAnswer":{"@type":"Answer","text":"No. A 10 mg vial reconstituted with 2 mL is twice as concentrated as a 5 mg vial with the same 2 mL, so the same dose needs half the volume. Vial size changes how many doses it holds, not what a dose is."}},
     {"@type":"Question","name":"How do you calculate peptide concentration after reconstitution?","acceptedAnswer":{"@type":"Answer","text":"Divide the milligrams of peptide in the vial by the millilitres of bacteriostatic water added. A 5 mg vial reconstituted with 2 mL gives 2.5 mg per mL."}}
   ]
 }
