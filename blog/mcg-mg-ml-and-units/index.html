@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mcg, mg, mL and Units — The Four Numbers People Mix Up</title>
+<meta name="description" content="Why there is no direct mg to units conversion, what concentration actually does, and the two conversions worth memorising. With mcg-to-mg and mL-to-units reference tables.">
+<link rel="canonical" href="https://syringecalc.com/blog/mcg-mg-ml-and-units/">
+<meta name="theme-color" content="#0A5D75">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="mcg, mg, mL and units">
+<meta property="og:description" content="Why there is no direct mg-to-units conversion, and what concentration actually does.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://syringecalc.com/blog/mcg-mg-ml-and-units/">
+<meta property="og:site_name" content="Syringe Calc">
+<meta property="og:image" content="https://syringecalc.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://syringecalc.com/og.png">
+<link rel="preload" href="/fonts/InstrumentSans-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/blog/style.css">
+</head>
+<body>
+
+<header class="sitebar">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="chip"></span>Syringe Calc</a>
+    <nav>
+      <a href="/">Calculator</a>
+      <a href="/blog/" aria-current="page">Notes</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Notes</a> / mcg, mg, mL and units</p>
+
+  <article>
+    <h1>mcg, mg, mL and units</h1>
+    <p class="standfirst">Two of these measure mass and two measure volume. Nearly every reconstitution error comes from treating one kind as the other.</p>
+    <p class="meta">Updated 1 August 2026 · 6 min read</p>
+
+    <p>People ask "how many units is 1 mg?" constantly, and the honest answer is that the question is missing a piece. It is a bit like asking how many cups are in a kilogram — the answer depends entirely on what the substance is and how concentrated it is.</p>
+
+    <p>Sorting this out takes about two minutes and removes most of the ways the arithmetic can go wrong.</p>
+
+    <h2>Two kinds of number</h2>
+
+    <p>The four quantities split cleanly into two pairs.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>What each unit measures</caption>
+        <thead>
+          <tr><th scope="col">Unit</th><th scope="col">Measures</th><th scope="col">Answers</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">mcg</th><td>Mass</td><td>How much substance</td></tr>
+          <tr><th scope="row">mg</th><td>Mass</td><td>How much substance</td></tr>
+          <tr><th scope="row">mL</th><td>Volume</td><td>How much liquid</td></tr>
+          <tr><th scope="row">unit</th><td>Volume</td><td>How much liquid</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Converting within a pair is trivial arithmetic. Converting <em>across</em> the pairs requires a third number, and that number is concentration.</p>
+
+    <h2>The two easy conversions</h2>
+
+    <p>Both of these are fixed. Neither depends on the vial, the compound, or anything else.</p>
+
+    <div class="formula">
+      <b>1 mg</b> = 1000 mcg<br>
+      <b>1 mL</b> = 100 units &nbsp;&nbsp;(on any U-100 insulin syringe)
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>mcg to mg</caption>
+        <thead>
+          <tr><th scope="col">mcg</th><th scope="col">mg</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">100 mcg</th><td>0.1 mg</td></tr>
+          <tr><th scope="row">250 mcg</th><td>0.25 mg</td></tr>
+          <tr><th scope="row">500 mcg</th><td>0.5 mg</td></tr>
+          <tr><th scope="row">750 mcg</th><td>0.75 mg</td></tr>
+          <tr><th scope="row">1000 mcg</th><td>1 mg</td></tr>
+          <tr><th scope="row">2500 mcg</th><td>2.5 mg</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>mL to syringe units</caption>
+        <thead>
+          <tr><th scope="col">mL</th><th scope="col">Units</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">0.01 mL</th><td>1 u</td></tr>
+          <tr><th scope="row">0.05 mL</th><td>5 u</td></tr>
+          <tr><th scope="row">0.10 mL</th><td>10 u</td></tr>
+          <tr><th scope="row">0.25 mL</th><td>25 u</td></tr>
+          <tr><th scope="row">0.50 mL</th><td>50 u</td></tr>
+          <tr><th scope="row">1.00 mL</th><td>100 u</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>You may also see <strong>µg</strong> written instead of mcg. They are the same thing — one microgram. The "mcg" spelling exists precisely because the Greek letter mu is easy to misread by hand, and in a context where a misread means a thousandfold error, that ambiguity was worth designing out.</p>
+
+    <h2>Concentration is the bridge</h2>
+
+    <p>To cross from mass to volume you need to know how much substance is packed into each millilitre of liquid. That is concentration, and after reconstitution it is fixed by two numbers you already have:</p>
+
+    <div class="formula">
+      <b>Concentration (mg/mL)</b> = peptide in the vial (mg) ÷ water added (mL)
+    </div>
+
+    <p>A 5 mg vial with 2 mL of water is 2.5 mg/mL. The same 5 mg vial with 1 mL is 5 mg/mL. Same vial, same total quantity of substance, twice the concentration — because the liquid was halved.</p>
+
+    <div class="callout">
+      <p><strong>The thing worth internalising:</strong> adding water never changes how much peptide you have. It changes how much liquid that peptide is spread through, and therefore how far along the barrel any given dose lands.</p>
+    </div>
+
+    <h2>Putting it together</h2>
+
+    <p>Once you have concentration, going from a dose in mass to a reading on the barrel is two steps:</p>
+
+    <div class="formula">
+      <b>Volume (mL)</b> = dose (mg) ÷ concentration (mg/mL)<br>
+      <b>Units</b> = volume (mL) × 100
+    </div>
+
+    <h3>Worked example</h3>
+
+    <p>Say a 5 mg vial, 2 mL of bacteriostatic water, and a 250 mcg dose.</p>
+
+    <ol>
+      <li><strong>Concentration:</strong> 5 ÷ 2 = 2.5 mg/mL</li>
+      <li><strong>Convert the dose to mg:</strong> 250 mcg ÷ 1000 = 0.25 mg</li>
+      <li><strong>Volume:</strong> 0.25 ÷ 2.5 = 0.1 mL</li>
+      <li><strong>Units:</strong> 0.1 × 100 = 10 units</li>
+    </ol>
+
+    <p>Step two is where decimals go wrong most often, because it is the only step where the number changes by a factor of a thousand. Doing it first — before any division — keeps everything downstream in one unit system.</p>
+
+    <h2>Why the same dose gives different unit readings</h2>
+
+    <p>This is what makes "how many units is 250 mcg?" unanswerable without more information. The same 250 mcg lands somewhere different on the barrel depending only on how much water went into the vial.</p>
+
+    <div class="tablewrap">
+      <table>
+        <caption>250 mcg at four concentrations</caption>
+        <thead>
+          <tr><th scope="col">Concentration</th><th scope="col">Volume</th><th scope="col">Units</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">1 mg/mL</th><td>0.25 mL</td><td>25 u</td></tr>
+          <tr><th scope="row">2.5 mg/mL</th><td>0.10 mL</td><td>10 u</td></tr>
+          <tr><th scope="row">5 mg/mL</th><td>0.05 mL</td><td>5 u</td></tr>
+          <tr><th scope="row">10 mg/mL</th><td>0.025 mL</td><td>2.5 u</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">Identical quantity of substance in all four rows. Only the dilution differs.</p>
+
+    <p>Which is also why a number someone else quotes you is meaningless without their concentration attached. "I draw 10 units" tells you nothing unless you also know what they reconstituted with.</p>
+
+    <h2>Sanity checks</h2>
+
+    <p>Three quick tests that catch most order-of-magnitude errors before they matter:</p>
+
+    <ul>
+      <li><strong>Does it fit?</strong> Any answer above 100 units cannot fit in an insulin syringe. Something is off by a factor of ten.</li>
+      <li><strong>Is it measurable?</strong> Anything under about 2 units is below the practical resolution of the scale.</li>
+      <li><strong>Does the vial count work?</strong> Divide the vial's total mg by your dose in mg. If a 5 mg vial gives you 200 doses or 0.5 doses, recheck your mcg-to-mg step.</li>
+    </ul>
+
+    <a class="cta" href="/">
+      <span class="k">Skip the arithmetic</span>
+      <span class="t">Peptide reconstitution calculator</span>
+      <span class="d">Takes mg or mcg, does the conversion, and shows the draw on a to-scale syringe barrel.</span>
+    </a>
+
+    <div class="more">
+      <h2>Related</h2>
+      <ul class="postlist">
+        <li><a href="/blog/how-to-read-an-insulin-syringe/"><span class="pt">How to read an insulin syringe</span><span class="px">What the barrel markings mean and exactly where to read the plunger.</span></a></li>
+        <li><a href="/blog/reconstitution-worked-examples/"><span class="pt">Five worked examples</span><span class="px">Common vial and water combinations, calculated start to finish.</span></a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="disclaimer">
+    <p><strong>This is a unit reference, not medical advice.</strong> It explains conversions between mass, volume and syringe units. It does not suggest doses, recommend compounds, or evaluate whether anything is safe or appropriate for you.</p>
+    <p>Speak to a licensed clinician before starting, changing, or stopping anything. Check every calculation against your vial label before you draw.</p>
+  </footer>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BlogPosting",
+  "headline":"mcg, mg, mL and units",
+  "description":"Why there is no direct mg-to-units conversion, what concentration does, and the two fixed conversions worth memorising, with reference tables.",
+  "datePublished":"2026-08-01",
+  "dateModified":"2026-08-01",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://syringecalc.com/blog/mcg-mg-ml-and-units/"},
+  "image":"https://syringecalc.com/og.png",
+  "publisher":{"@type":"Organization","name":"Syringe Calc","url":"https://syringecalc.com/"},
+  "isAccessibleForFree":true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://syringecalc.com/"},
+    {"@type":"ListItem","position":2,"name":"Notes","item":"https://syringecalc.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"mcg, mg, mL and units"}
+  ]
+}
+</script>
+
+</body>
+</html>

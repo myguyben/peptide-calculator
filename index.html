@@ -437,6 +437,20 @@
   tbody tr:hover td,tbody tr:hover th{background:#F7F9FA}
   .tnote{font-size:.8125rem;color:var(--ink-faint);margin:-8px 0 0}
 
+  .readmore{list-style:none;padding:0;margin:20px 0 0}
+  .readmore li{border-top:1px solid var(--hairline)}
+  .readmore a{display:block;padding:18px 0;text-decoration:none}
+  .readmore a:hover .rt{color:var(--fluid-deep)}
+  .rt{
+    font-size:1.0625rem;
+    font-weight:600;
+    letter-spacing:-.012em;
+    color:var(--ink);
+    display:block;
+    margin-bottom:4px;
+  }
+  .rx{font-size:.9063rem;color:var(--ink-soft);display:block;line-height:1.5}
+
   .disclaimer{
     margin:64px 0 0;
     padding:24px 0 72px;
@@ -694,6 +708,36 @@
 
     <h3>Does this tool store anything?</h3>
     <p>No. The math runs in your browser. Nothing is sent anywhere, there is no account, no tracking, and closing the tab clears it. Even the fonts are served from this domain, so the page makes no third-party requests at all.</p>
+
+    <h2>Further reading</h2>
+    <p>Longer notes on the arithmetic and the instrument, in <a href="/blog/">the notes section</a>.</p>
+
+    <ul class="readmore">
+      <li>
+        <a href="/blog/how-to-read-an-insulin-syringe/">
+          <span class="rt">How to read an insulin syringe</span>
+          <span class="rx">What U-100 means, how the three barrel sizes differ, exactly where on the stopper to read, and the five misreadings that are systematic rather than random.</span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog/mcg-mg-ml-and-units/">
+          <span class="rt">mcg, mg, mL and units</span>
+          <span class="rx">Two measure mass, two measure volume. Why there is no direct mg-to-units conversion, and how concentration bridges them.</span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog/how-much-bacteriostatic-water/">
+          <span class="rt">How much bacteriostatic water to add</span>
+          <span class="rx">Why the volume is a readability decision rather than a dosing one, and how to solve backwards from the draw you want to read.</span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog/reconstitution-worked-examples/">
+          <span class="rt">Five reconstitution examples, worked start to finish</span>
+          <span class="rx">2 mg through 30 mg vials with every intermediate number shown, plus one combination that produces an unreadable draw.</span>
+        </a>
+      </li>
+    </ul>
   </article>
 
   <footer class="disclaimer">
