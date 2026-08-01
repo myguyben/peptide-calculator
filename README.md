@@ -50,7 +50,7 @@ The live URL appears in four places. Find and replace all of them together:
 - `robots.txt` — `Sitemap:`
 
 ```powershell
-$old = 'peptide-calc.onrender.com'
+$old = 'syringecalc.com'
 $new = 'your-new-domain.com'
 Get-ChildItem index.html, sitemap.xml, robots.txt | ForEach-Object {
   (Get-Content $_ -Raw).Replace($old, $new) | Set-Content $_ -NoNewline -Encoding utf8
@@ -65,7 +65,7 @@ Render static site, publish path `.`, no build command. Auto-deploys on push to
 `main`.
 
 - Service: `peptide-calc` (`srv-d9miq6navr4c73eg8l20`), Icey workspace
-- Live: https://peptide-calc.onrender.com
+- Live: https://syringecalc.com
 
 ### Header rules are not applied yet
 
@@ -90,12 +90,12 @@ site will find the sitemap.
   ```powershell
   $key = '20c5e17585ea44cc99997c8085c209ae4dc70d61a7c84bbd9fa3c482c554aa6c'
   Invoke-WebRequest -UseBasicParsing -Uri ("https://api.indexnow.org/indexnow" +
-    "?url=https://peptide-calc.onrender.com/&key=$key")
+    "?url=https://syringecalc.com/&key=$key")
   ```
 
 - **Google** — not automatable from here. Google does not participate in
   IndexNow, and Search Console is OAuth-gated to the account owner. Ben has to:
-  1. Add `https://peptide-calc.onrender.com/` as a URL-prefix property at
+  1. Add `https://syringecalc.com/` as a URL-prefix property at
      https://search.google.com/search-console
   2. Verify with the HTML meta tag (there is a commented slot in `index.html`
      `<head>` for it), then commit and push

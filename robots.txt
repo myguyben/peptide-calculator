@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://peptide-calc.onrender.com/sitemap.xml
+Sitemap: https://syringecalc.com/sitemap.xml
